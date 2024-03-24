@@ -3,35 +3,23 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"go-app/goenv"
 	"go-app/types"
 	"log"
-	"os"
 
 	"github.com/go-sql-driver/mysql"
-	"github.com/joho/godotenv"
 )
-
-func goDotEnvVariable(key string) string {
-
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return os.Getenv(key)
-}
 
 var DB *sql.DB
 
 func CreateDatabase() {
 
 	cfg := mysql.Config{
-		User:                 goDotEnvVariable("USER"),
-		Passwd:               goDotEnvVariable("PASS"),
+		User:                 goenv.GoDotEnvVariable("USER"),
+		Passwd:               goenv.GoDotEnvVariable("PASS"),
 		Net:                  "tcp",
-		Addr:                 goDotEnvVariable("ADDR"),
-		DBName:               goDotEnvVariable("DATABASE"),
+		Addr:                 goenv.GoDotEnvVariable("ADDR"),
+		DBName:               goenv.GoDotEnvVariable("DATABASE"),
 		AllowNativePasswords: true,
 	}
 
