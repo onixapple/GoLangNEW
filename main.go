@@ -19,6 +19,11 @@ type Book struct {
 	Stock  uint
 }
 
+type Film struct {
+	Title    string
+	Director string
+}
+
 func main() {
 
 	cfg := mysql.Config{
@@ -57,19 +62,24 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	book1 := Book{
-		Name:   name,
-		Author: author,
-		Stock:  quantity,
+	//after reading the Book object form db , its included in a variable , to be available on indedx.html
+
+	films := map[string][]Film{
+		"Films": {
+			{Title: "Pirates 4", Director: "Someone De Niro"},
+			{Title: "Toy Story", Director: "Tony Stark"},
+			{Title: "Grand Casino", Director: "Mellstroy"},
+		},
 	}
 
 	h1 := func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("index.html"))
-		tmpl.Execute(w, book1)
+		tmpl.Execute(w, films)
 	}
-
+	//handles the function and assigns an endpoint
 	http.HandleFunc("/", h1)
 
+	//listening, if any errors , log Fatal will close with code 1
 	log.Fatal(http.ListenAndServe(":8000", nil))
 
 }
