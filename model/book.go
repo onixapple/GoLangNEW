@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"go-app/db"
 	"go-app/types"
 	"log"
@@ -31,4 +32,15 @@ func AddBook(book types.Book) (uint, error) {
 	}
 
 	return id, nil
+}
+
+func GetBookByName(name string) (types.Book, error) {
+	var book types.Book
+
+	book, err := db.GetBookByName(name)
+
+	if err != nil {
+		return book, errors.New("book not found")
+	}
+	return book, nil
 }

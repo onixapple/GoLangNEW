@@ -26,3 +26,14 @@ func AddBook(context *gin.Context) {
 	}
 	context.IndentedJSON(http.StatusCreated, id)
 }
+
+func GetBookByName(context *gin.Context) {
+	name := context.Param("name")
+	book, err := model.GetBookByName(name)
+
+	if err != nil {
+		context.IndentedJSON(http.StatusNotFound, gin.H{"message": "Book not found"})
+	}
+
+	context.IndentedJSON(http.StatusOK, book)
+}

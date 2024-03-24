@@ -74,3 +74,12 @@ func AddBook(book types.Book) (uint, error) {
 	}
 	return uint(lastId), nil
 }
+func GetBookByName(name string) (types.Book, error) {
+	var book types.Book
+
+	err := DB.QueryRow("Select * from Books Where name = ?", name).Scan(&book.Author, &book.Name, &book.Stock)
+	if err != nil {
+		return book, err
+	}
+	return book, nil
+}
