@@ -6,12 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var context *gin.Context
-
 func RunRouter() {
 	router := gin.Default()
 
 	router.GET("/books", controller.GetBooks)
+	router.POST("/newBooks", controller.AddBook)
 
 	router.Run("localhost:8000")
 }

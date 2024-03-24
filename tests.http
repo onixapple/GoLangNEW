@@ -1,1 +1,9 @@
-http://localhost:8000/books
+POST http://localhost:8000/newBooks HTTP/1.1
+User-Agent: rest-client
+Accept-Language: en-GB,en-US;q=0.8,en;q=0.6,zh-CN;q=0.4
+Content-Type: application/json
+{
+    "name": "John Cena",
+    "author": "Rey",
+    "stock": 50
+}

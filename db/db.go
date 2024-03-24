@@ -62,3 +62,15 @@ func GetBooks(DB *sql.DB) ([]types.Book, error) {
 	}
 	return books, nil
 }
+
+func AddBook(book types.Book) (uint, error) {
+	res, err := DB.Exec("INSERT INTO Books(Name,Author,Stock) VALUES(?,?,?)", book.Name, book.Author, book.Stock)
+	if err != nil {
+		return 0, err
+	}
+	lastId, err := res.LastInsertId()
+	if err != nil {
+		return uint(lastId), err
+	}
+	return uint(lastId), nil
+}

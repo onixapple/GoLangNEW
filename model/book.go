@@ -22,3 +22,13 @@ func GetBooks() []types.Book {
 	return books
 
 }
+
+func AddBook(book types.Book) (uint, error) {
+	id, err := db.AddBook(book)
+
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
+}
